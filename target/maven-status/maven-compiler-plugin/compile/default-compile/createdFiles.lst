@@ -4,6 +4,7 @@ penyaka/petproject/spring_rest_web_mvc/model/CustomerDTO.class
 penyaka/petproject/spring_rest_web_mvc/repository/CustomerRepository.class
 penyaka/petproject/spring_rest_web_mvc/mapper/BeerMapperImpl.class
 penyaka/petproject/spring_rest_web_mvc/entity/Beer.class
+penyaka/petproject/spring_rest_web_mvc/bootstrap/BootstrapData.class
 penyaka/petproject/spring_rest_web_mvc/model/BeerDTO.class
 penyaka/petproject/spring_rest_web_mvc/controller/ExceptionController.class
 penyaka/petproject/spring_rest_web_mvc/entity/Customer$CustomerBuilder.class

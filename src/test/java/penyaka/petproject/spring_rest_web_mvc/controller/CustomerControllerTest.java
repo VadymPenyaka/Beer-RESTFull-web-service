@@ -76,11 +76,13 @@ class CustomerControllerTest {
     void deleteCustomerTest () throws Exception {
         CustomerDTO customer = customerServiceImpl.getAllCustomers().get(0);
 
+        given(customerService.deleteByID(any())).willReturn(true);
+
         mockMvc.perform(delete(CustomerController.CUSTOMER_PATH_ID, customer.getId())
                     .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
-        verify(customerService).delete(uuidArgumentCaptor.capture());
+        verify(customerService).deleteByID(uuidArgumentCaptor.capture());
         assertThat(uuidArgumentCaptor.getValue()).isEqualTo(customer.getId());
     }
 
@@ -88,13 +90,15 @@ class CustomerControllerTest {
     void updateCustomerTest() throws Exception {
         CustomerDTO customer = customerServiceImpl.getAllCustomers().get(0);
 
+        given(customerService.updateById(any(), any())).willReturn(Optional.of(customer));
+
         mockMvc.perform(put(CustomerController.CUSTOMER_PATH_ID, customer.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(customer)))
                 .andExpect(status().isNoContent());
 
-        verify(customerService).updateCustomer(any(UUID.class), any(CustomerDTO.class));
+        verify(customerService).updateById(any(UUID.class), any(CustomerDTO.class));
     }
 
     @Test
@@ -129,14 +133,14 @@ class CustomerControllerTest {
                 .lastModifiedDate(LocalDateTime.now())
                 .build();
 
-        given(customerService.createNewCustomer(any(CustomerDTO.class))).willReturn(customerServiceImpl.getAllCustomers().get(0));
+        given(customerService.createCustomer(any(CustomerDTO.class))).willReturn(customerServiceImpl.getAllCustomers().get(0));
 
         mockMvc.perform(post(CustomerController.CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(customer)))
                 .andExpect(status().isCreated())
-                .andExpect(header().exists("UUID"));
+                .andExpect(header().exists("Location"));
     }
 
 }
