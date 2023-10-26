@@ -12,12 +12,15 @@ penyaka/petproject/spring_rest_web_mvc/model/BeerDTO$BeerBuilder.class
 penyaka/petproject/spring_rest_web_mvc/service/BeerServiceImpl.class
 penyaka/petproject/spring_rest_web_mvc/mapper/BeerMapper.class
 penyaka/petproject/spring_rest_web_mvc/mapper/CustomerMapperImpl.class
+penyaka/petproject/spring_rest_web_mvc/controller/CustomErrorController.class
 penyaka/petproject/spring_rest_web_mvc/entity/Customer.class
 penyaka/petproject/spring_rest_web_mvc/controller/CustomerController.class
 penyaka/petproject/spring_rest_web_mvc/service/CustomerService.class
 penyaka/petproject/spring_rest_web_mvc/service/CustomerServiceImpl.class
 penyaka/petproject/spring_rest_web_mvc/model/CustomerDTO$CustomerDTOBuilder.class
+penyaka/petproject/spring_rest_web_mvc/service/CustomerServiceJPAImpl.class
 penyaka/petproject/spring_rest_web_mvc/exception/NotFoundException.class
+penyaka/petproject/spring_rest_web_mvc/service/BeerServiceJPAImpl.class
 penyaka/petproject/spring_rest_web_mvc/SpringRestWebMvcApplication.class
 penyaka/petproject/spring_rest_web_mvc/mapper/CustomerMapper.class
 penyaka/petproject/spring_rest_web_mvc/model/BeerStyle.class

@@ -1,6 +1,8 @@
 package penyaka.petproject.spring_rest_web_mvc.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import penyaka.petproject.spring_rest_web_mvc.model.BeerStyle;
@@ -25,10 +27,16 @@ public class Beer {
 
     @Version
     private Integer version;
+    @NotNull
+    @NotBlank
     private String name;
+    @NotNull
     private BeerStyle beerStyle;
+    @NotNull
+    @NotBlank
     private String upc;
     private Integer quantityOnHand;
+    @NotNull
     private BigDecimal price;
     private LocalDateTime createdDate;
     private LocalDateTime updateDate;

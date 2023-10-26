@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import penyaka.petproject.spring_rest_web_mvc.exception.NotFoundException;
 import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
@@ -20,7 +21,7 @@ public class CustomerController {
     public final static String CUSTOMER_PATH_ID = CUSTOMER_PATH + "/{id}";
 
     @PatchMapping(CUSTOMER_PATH_ID)
-    public ResponseEntity patchCustomerById (@PathVariable("id") UUID id, @RequestBody CustomerDTO customer) {
+    public ResponseEntity patchCustomerById (@PathVariable("id") UUID id, @Validated @RequestBody CustomerDTO customer) {
         customerService.patchById(id, customer);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -33,14 +34,14 @@ public class CustomerController {
     }
 
     @PutMapping(CUSTOMER_PATH_ID)
-    public ResponseEntity updateCustomer (@PathVariable("id") UUID id, @RequestBody CustomerDTO customer) {
+    public ResponseEntity updateCustomer (@PathVariable("id") UUID id, @Validated @RequestBody CustomerDTO customer) {
         if(customerService.updateById(id, customer).isEmpty())
             throw new NotFoundException();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping(CUSTOMER_PATH)
-    public ResponseEntity<CustomerDTO> createNewCustomer (@RequestBody CustomerDTO customer) {
+    public ResponseEntity<CustomerDTO> createNewCustomer (@Validated @RequestBody CustomerDTO customer) {
         CustomerDTO savedCustomer = customerService.createCustomer(customer);
 
         HttpHeaders httpHeaders = new HttpHeaders();

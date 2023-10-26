@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import penyaka.petproject.spring_rest_web_mvc.exception.NotFoundException;
 import penyaka.petproject.spring_rest_web_mvc.model.BeerDTO;
@@ -30,7 +31,7 @@ public class BeerController {
     }
 
     @PutMapping(BEER_PATH_ID)
-    public ResponseEntity updateById (@PathVariable("id") UUID id, @RequestBody BeerDTO beer) {
+    public ResponseEntity updateById (@PathVariable("id") UUID id, @Validated @RequestBody BeerDTO beer) {
         if(beerService.updateById(id, beer).isEmpty())
             throw new NotFoundException();
 
@@ -38,7 +39,7 @@ public class BeerController {
     }
 
     @PatchMapping(BEER_PATH_ID)
-    public ResponseEntity patchById (@PathVariable("id") UUID id, @RequestBody BeerDTO beer) {
+    public ResponseEntity patchById (@PathVariable("id") UUID id, @Validated @RequestBody BeerDTO beer) {
         beerService.patchById(id, beer);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
@@ -49,7 +50,7 @@ public class BeerController {
 //    }
 
     @PostMapping(BEER_PATH)
-    public ResponseEntity<BeerDTO> create(@RequestBody BeerDTO beer) {
+    public ResponseEntity<BeerDTO> create(@Validated @RequestBody BeerDTO beer) {
         BeerDTO savedBeer = beerService.save(beer);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Location", BEER_PATH + "/" + savedBeer.getId().toString());
