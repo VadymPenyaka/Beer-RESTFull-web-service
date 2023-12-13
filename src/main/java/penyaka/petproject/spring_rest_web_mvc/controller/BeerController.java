@@ -5,65 +5,78 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import penyaka.petproject.spring_rest_web_mvc.exception.NotFoundException;
 import penyaka.petproject.spring_rest_web_mvc.model.BeerDTO;
-import penyaka.petproject.spring_rest_web_mvc.service.BeerService;
+import penyaka.petproject.spring_rest_web_mvc.services.BeerService;
 
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 public class BeerController {
+
+    public static final String BEER_PATH = "/api/v1/beer";
+    public static final String BEER_PATH_ID = BEER_PATH + "/{beerId}";
+
     private final BeerService beerService;
-    public final static String BEER_PATH = "/api/v1/beer";
-    public final static String BEER_PATH_ID = BEER_PATH + "/{id}";
-
-    @DeleteMapping(BEER_PATH_ID)
-    public ResponseEntity deleteByID (@PathVariable("id") UUID id) {
-        if(!beerService.deleteById(id))
-            throw new NotFoundException();
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @PutMapping(BEER_PATH_ID)
-    public ResponseEntity updateById (@PathVariable("id") UUID id, @RequestBody BeerDTO beer) {
-        if(beerService.updateById(id, beer).isEmpty())
-            throw new NotFoundException();
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 
     @PatchMapping(BEER_PATH_ID)
-    public ResponseEntity patchById (@PathVariable("id") UUID id, @RequestBody BeerDTO beer) {
-        beerService.patchById(id, beer);
+    public ResponseEntity updateBeerPatchById(@PathVariable("beerId")UUID beerId, @RequestBody BeerDTO beer){
+
+        beerService.patchBeerById(beerId, beer);
+
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-//    @ExceptionHandler(NotFoundException.class)
-//    public ResponseEntity handleNotFoundException () {
-//        return ResponseEntity.notFound().build();
-//    }
+    @DeleteMapping(BEER_PATH_ID)
+    public ResponseEntity deleteById(@PathVariable("beerId") UUID beerId){
+
+        if(! beerService.deleteById(beerId)){
+            throw new NotFoundException();
+        }
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping(BEER_PATH_ID)
+    public ResponseEntity updateById(@PathVariable("beerId")UUID beerId, @Validated @RequestBody BeerDTO beer){
+
+        if( beerService.updateBeerById(beerId, beer).isEmpty()){
+            throw new NotFoundException();
+        }
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 
     @PostMapping(BEER_PATH)
-    public ResponseEntity<BeerDTO> create(@RequestBody BeerDTO beer) {
-        BeerDTO savedBeer = beerService.save(beer);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Location", BEER_PATH + "/" + savedBeer.getId().toString());
+    public ResponseEntity handlePost(@Validated @RequestBody BeerDTO beer){
 
-        return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
-    }
-    @RequestMapping(BEER_PATH_ID)
-    public BeerDTO gerBeerById (@PathVariable("id") UUID id) {
-        log.debug("BeerContoller123 y98");
-        return beerService.getBeerById(id).orElseThrow(NotFoundException::new);
+        BeerDTO savedBeer = beerService.saveNewBeer(beer);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", BEER_PATH + "/" + savedBeer.getId().toString());
+
+        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
-    @GetMapping(BEER_PATH)
-    public List<BeerDTO> listBeers () {
-        return beerService.getAllBeers();
+    @GetMapping(value = BEER_PATH)
+    public List<BeerDTO> listBeers(){
+        return beerService.listBeers();
     }
+
+
+    @GetMapping(value = BEER_PATH_ID)
+    public BeerDTO getBeerById(@PathVariable("beerId") UUID beerId){
+
+        log.debug("Get Beer by Id - in controller");
+
+        return beerService.getBeerById(beerId).orElseThrow(NotFoundException::new);
+    }
+
 }

@@ -1,14 +1,14 @@
-package penyaka.petproject.spring_rest_web_mvc.mapper;
+package penyaka.petproject.spring_rest_web_mvc.mappers;
 
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
-import penyaka.petproject.spring_rest_web_mvc.entity.Customer;
+import penyaka.petproject.spring_rest_web_mvc.entities.Customer;
 import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-26T00:18:56+0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
+    date = "2023-12-13T17:22:29+0200",
+    comments = "version: 1.5.2.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class CustomerMapperImpl implements CustomerMapper {
@@ -22,10 +22,10 @@ public class CustomerMapperImpl implements CustomerMapper {
         Customer.CustomerBuilder customer = Customer.builder();
 
         customer.id( dto.getId() );
-        customer.version( dto.getVersion() );
         customer.name( dto.getName() );
+        customer.version( dto.getVersion() );
         customer.createdDate( dto.getCreatedDate() );
-        customer.lastModifiedDate( dto.getLastModifiedDate() );
+        customer.updateDate( dto.getUpdateDate() );
 
         return customer.build();
     }
@@ -39,10 +39,10 @@ public class CustomerMapperImpl implements CustomerMapper {
         CustomerDTO.CustomerDTOBuilder customerDTO = CustomerDTO.builder();
 
         customerDTO.id( customer.getId() );
-        customerDTO.version( customer.getVersion() );
         customerDTO.name( customer.getName() );
+        customerDTO.version( customer.getVersion() );
         customerDTO.createdDate( customer.getCreatedDate() );
-        customerDTO.lastModifiedDate( customer.getLastModifiedDate() );
+        customerDTO.updateDate( customer.getUpdateDate() );
 
         return customerDTO.build();
     }

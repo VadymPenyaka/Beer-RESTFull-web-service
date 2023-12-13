@@ -3,11 +3,11 @@ package penyaka.petproject.spring_rest_web_mvc.bootstrap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import penyaka.petproject.spring_rest_web_mvc.entity.Beer;
-import penyaka.petproject.spring_rest_web_mvc.entity.Customer;
+import penyaka.petproject.spring_rest_web_mvc.entities.Beer;
+import penyaka.petproject.spring_rest_web_mvc.entities.Customer;
 import penyaka.petproject.spring_rest_web_mvc.model.BeerStyle;
-import penyaka.petproject.spring_rest_web_mvc.repository.BeerRepository;
-import penyaka.petproject.spring_rest_web_mvc.repository.CustomerRepository;
+import penyaka.petproject.spring_rest_web_mvc.repositories.BeerRepository;
+import penyaka.petproject.spring_rest_web_mvc.repositories.CustomerRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -32,7 +32,7 @@ public class BootstrapData implements CommandLineRunner {
     private void loadBeerData() {
         if (beerRepository.count() == 0){
             Beer beer1 = Beer.builder()
-                    .name("Galaxy Cat")
+                    .beerName("Galaxy Cat")
                     .beerStyle(BeerStyle.PALE_ALE)
                     .upc("12356")
                     .price(new BigDecimal("12.99"))
@@ -42,7 +42,7 @@ public class BootstrapData implements CommandLineRunner {
                     .build();
 
             Beer beer2 = Beer.builder()
-                    .name("Crank")
+                    .beerName("Crank")
                     .beerStyle(BeerStyle.PALE_ALE)
                     .upc("12356222")
                     .price(new BigDecimal("11.99"))
@@ -52,7 +52,7 @@ public class BootstrapData implements CommandLineRunner {
                     .build();
 
             Beer beer3 = Beer.builder()
-                    .name("Sunshine City")
+                    .beerName("Sunshine City")
                     .beerStyle(BeerStyle.IPA)
                     .upc("12356")
                     .price(new BigDecimal("13.99"))
@@ -76,7 +76,7 @@ public class BootstrapData implements CommandLineRunner {
                     .name("Customer 1")
                     .version(1)
                     .createdDate(LocalDateTime.now())
-                    .lastModifiedDate(LocalDateTime.now())
+                    .updateDate(LocalDateTime.now())
                     .build();
 
             Customer customer2 = Customer.builder()
@@ -84,7 +84,7 @@ public class BootstrapData implements CommandLineRunner {
                     .name("Customer 2")
                     .version(1)
                     .createdDate(LocalDateTime.now())
-                    .lastModifiedDate(LocalDateTime.now())
+                    .updateDate(LocalDateTime.now())
                     .build();
 
             Customer customer3 = Customer.builder()
@@ -92,7 +92,7 @@ public class BootstrapData implements CommandLineRunner {
                     .name("Customer 3")
                     .version(1)
                     .createdDate(LocalDateTime.now())
-                    .lastModifiedDate(LocalDateTime.now())
+                    .updateDate(LocalDateTime.now())
                     .build();
 
             customerRepository.saveAll(Arrays.asList(customer1, customer2, customer3));
