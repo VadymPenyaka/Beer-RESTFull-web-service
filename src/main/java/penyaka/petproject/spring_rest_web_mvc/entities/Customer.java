@@ -7,9 +7,6 @@ import org.hibernate.annotations.GenericGenerator;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
 @Getter
 @Setter
 @Builder
@@ -26,6 +23,6 @@ public class Customer {
 
     @Version
     private Integer version;
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

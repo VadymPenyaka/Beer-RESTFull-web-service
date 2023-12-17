@@ -13,9 +13,7 @@ import penyaka.petproject.spring_rest_web_mvc.services.BeerService;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -27,7 +25,7 @@ public class BeerController {
     private final BeerService beerService;
 
     @PatchMapping(BEER_PATH_ID)
-    public ResponseEntity updateBeerPatchById(@PathVariable("beerId")UUID beerId, @RequestBody BeerDTO beer){
+    public ResponseEntity patchBeerById(@PathVariable("beerId")UUID beerId, @RequestBody BeerDTO beer){
 
         beerService.patchBeerById(beerId, beer);
 
@@ -35,9 +33,9 @@ public class BeerController {
     }
 
     @DeleteMapping(BEER_PATH_ID)
-    public ResponseEntity deleteById(@PathVariable("beerId") UUID beerId){
+    public ResponseEntity deleteBeerById(@PathVariable("beerId") UUID beerId){
 
-        if(! beerService.deleteById(beerId)){
+        if(! beerService.deleteBeerById(beerId)){
             throw new NotFoundException();
         }
 
@@ -45,7 +43,7 @@ public class BeerController {
     }
 
     @PutMapping(BEER_PATH_ID)
-    public ResponseEntity updateById(@PathVariable("beerId")UUID beerId, @Validated @RequestBody BeerDTO beer){
+    public ResponseEntity updateBeerById(@PathVariable("beerId")UUID beerId, @Validated @RequestBody BeerDTO beer){
 
         if( beerService.updateBeerById(beerId, beer).isEmpty()){
             throw new NotFoundException();
@@ -55,7 +53,7 @@ public class BeerController {
     }
 
     @PostMapping(BEER_PATH)
-    public ResponseEntity handlePost(@Validated @RequestBody BeerDTO beer){
+    public ResponseEntity saveNewBeer(@Validated @RequestBody BeerDTO beer){
 
         BeerDTO savedBeer = beerService.saveNewBeer(beer);
 
@@ -66,8 +64,8 @@ public class BeerController {
     }
 
     @GetMapping(value = BEER_PATH)
-    public List<BeerDTO> listBeers(){
-        return beerService.listBeers();
+    public List<BeerDTO> getAllBeers(){
+        return beerService.getAllBeers();
     }
 
 

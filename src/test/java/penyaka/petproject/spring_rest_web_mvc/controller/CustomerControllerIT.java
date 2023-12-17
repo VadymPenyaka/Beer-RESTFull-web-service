@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import penyaka.petproject.spring_rest_web_mvc.controller.CustomerController;
-import penyaka.petproject.spring_rest_web_mvc.controller.NotFoundException;
 import penyaka.petproject.spring_rest_web_mvc.entities.Customer;
 import penyaka.petproject.spring_rest_web_mvc.mappers.CustomerMapper;
 import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
@@ -84,7 +82,7 @@ class CustomerControllerIT {
                .name("TEST")
                .build();
 
-        ResponseEntity responseEntity = customerController.handlePost(customerDTO);
+        ResponseEntity responseEntity = customerController.saveNewBeer(customerDTO);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(201));
         assertThat(responseEntity.getHeaders().getLocation()).isNotNull();
@@ -101,14 +99,14 @@ class CustomerControllerIT {
     @Test
     void testListAllEmptyList() {
         customerRepository.deleteAll();
-        List<CustomerDTO> dtos = customerController.listAllCustomers();
+        List<CustomerDTO> dtos = customerController.getAllCustomers();
 
         assertThat(dtos.size()).isEqualTo(0);
     }
 
     @Test
     void testListAll() {
-        List<CustomerDTO> dtos = customerController.listAllCustomers();
+        List<CustomerDTO> dtos = customerController.getAllCustomers();
 
         assertThat(dtos.size()).isEqualTo(3);
     }
