@@ -14,9 +14,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.UUID;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
 @Component
 @RequiredArgsConstructor
 public class BootstrapData implements CommandLineRunner {
@@ -32,32 +29,32 @@ public class BootstrapData implements CommandLineRunner {
     private void loadBeerData() {
         if (beerRepository.count() == 0){
             Beer beer1 = Beer.builder()
-                    .beerName("Galaxy Cat")
-                    .beerStyle(BeerStyle.PALE_ALE)
+                    .name("Galaxy Cat")
+                    .style(BeerStyle.PALE_ALE)
                     .upc("12356")
                     .price(new BigDecimal("12.99"))
                     .quantityOnHand(122)
-                    .createdDate(LocalDateTime.now())
+                    .createDate(LocalDateTime.now())
                     .updateDate(LocalDateTime.now())
                     .build();
 
             Beer beer2 = Beer.builder()
-                    .beerName("Crank")
-                    .beerStyle(BeerStyle.PALE_ALE)
+                    .name("Crank")
+                    .style(BeerStyle.PALE_ALE)
                     .upc("12356222")
                     .price(new BigDecimal("11.99"))
                     .quantityOnHand(392)
-                    .createdDate(LocalDateTime.now())
+                    .createDate(LocalDateTime.now())
                     .updateDate(LocalDateTime.now())
                     .build();
 
             Beer beer3 = Beer.builder()
-                    .beerName("Sunshine City")
-                    .beerStyle(BeerStyle.IPA)
+                    .name("Sunshine City")
+                    .style(BeerStyle.IPA)
                     .upc("12356")
                     .price(new BigDecimal("13.99"))
                     .quantityOnHand(144)
-                    .createdDate(LocalDateTime.now())
+                    .createDate(LocalDateTime.now())
                     .updateDate(LocalDateTime.now())
                     .build();
 
@@ -75,7 +72,7 @@ public class BootstrapData implements CommandLineRunner {
                     .id(UUID.randomUUID())
                     .name("Customer 1")
                     .version(1)
-                    .createdDate(LocalDateTime.now())
+                    .createDate(LocalDateTime.now())
                     .updateDate(LocalDateTime.now())
                     .build();
 
@@ -83,7 +80,7 @@ public class BootstrapData implements CommandLineRunner {
                     .id(UUID.randomUUID())
                     .name("Customer 2")
                     .version(1)
-                    .createdDate(LocalDateTime.now())
+                    .createDate(LocalDateTime.now())
                     .updateDate(LocalDateTime.now())
                     .build();
 
@@ -91,7 +88,7 @@ public class BootstrapData implements CommandLineRunner {
                     .id(UUID.randomUUID())
                     .name("Customer 3")
                     .version(1)
-                    .createdDate(LocalDateTime.now())
+                    .createDate(LocalDateTime.now())
                     .updateDate(LocalDateTime.now())
                     .build();
 

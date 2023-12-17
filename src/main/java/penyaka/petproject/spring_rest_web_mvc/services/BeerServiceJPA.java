@@ -14,9 +14,6 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
 @Service
 @Primary
 @RequiredArgsConstructor
@@ -25,7 +22,7 @@ public class BeerServiceJPA implements BeerService {
     private final BeerMapper beerMapper;
 
     @Override
-    public List<BeerDTO> listBeers() {
+    public List<BeerDTO> getAllBeers() {
         return beerRepository.findAll()
                 .stream()
                 .map(beerMapper::beerToBeerDto)
@@ -48,8 +45,8 @@ public class BeerServiceJPA implements BeerService {
         AtomicReference<Optional<BeerDTO>> atomicReference = new AtomicReference<>();
 
         beerRepository.findById(beerId).ifPresentOrElse(foundBeer -> {
-            foundBeer.setBeerName(beer.getBeerName());
-            foundBeer.setBeerStyle(beer.getBeerStyle());
+            foundBeer.setName(beer.getName());
+            foundBeer.setStyle(beer.getStyle());
             foundBeer.setUpc(beer.getUpc());
             foundBeer.setPrice(beer.getPrice());
             foundBeer.setQuantityOnHand(beer.getQuantityOnHand());
@@ -63,7 +60,7 @@ public class BeerServiceJPA implements BeerService {
     }
 
     @Override
-    public Boolean deleteById(UUID beerId) {
+    public Boolean deleteBeerById(UUID beerId) {
         if (beerRepository.existsById(beerId)) {
             beerRepository.deleteById(beerId);
             return true;
@@ -76,11 +73,11 @@ public class BeerServiceJPA implements BeerService {
         AtomicReference<Optional<BeerDTO>> atomicReference = new AtomicReference<>();
 
         beerRepository.findById(beerId).ifPresentOrElse(foundBeer -> {
-            if (StringUtils.hasText(beer.getBeerName())){
-                foundBeer.setBeerName(beer.getBeerName());
+            if (StringUtils.hasText(beer.getName())){
+                foundBeer.setName(beer.getName());
             }
-            if (beer.getBeerStyle() != null){
-                foundBeer.setBeerStyle(beer.getBeerStyle());
+            if (beer.getStyle() != null){
+                foundBeer.setStyle(beer.getStyle());
             }
             if (StringUtils.hasText(beer.getUpc())){
                 foundBeer.setUpc(beer.getUpc());

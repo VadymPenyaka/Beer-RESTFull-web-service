@@ -11,9 +11,6 @@ import penyaka.petproject.spring_rest_web_mvc.services.CustomerService;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
 
 @RequiredArgsConstructor
 @RestController
@@ -54,7 +51,7 @@ public class CustomerController {
     }
 
     @PostMapping(CUSTOMER_PATH)
-    public ResponseEntity handlePost(@RequestBody CustomerDTO customer){
+    public ResponseEntity saveNewBeer(@RequestBody CustomerDTO customer){
         CustomerDTO savedCustomer = customerService.saveNewCustomer(customer);
 
         HttpHeaders headers = new HttpHeaders();
@@ -64,7 +61,7 @@ public class CustomerController {
     }
 
     @GetMapping(CUSTOMER_PATH)
-    public List<CustomerDTO> listAllCustomers(){
+    public List<CustomerDTO> getAllCustomers(){
         return customerService.getAllCustomers();
     }
 

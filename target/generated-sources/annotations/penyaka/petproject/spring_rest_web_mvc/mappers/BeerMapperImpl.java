@@ -7,7 +7,7 @@ import penyaka.petproject.spring_rest_web_mvc.model.BeerDTO;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-13T17:22:29+0200",
+    date = "2023-12-16T17:47:04+0200",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -23,12 +23,12 @@ public class BeerMapperImpl implements BeerMapper {
 
         beer.id( dto.getId() );
         beer.version( dto.getVersion() );
-        beer.beerName( dto.getBeerName() );
-        beer.beerStyle( dto.getBeerStyle() );
+        beer.name( dto.getName() );
+        beer.style( dto.getStyle() );
         beer.upc( dto.getUpc() );
         beer.quantityOnHand( dto.getQuantityOnHand() );
         beer.price( dto.getPrice() );
-        beer.createdDate( dto.getCreatedDate() );
+        beer.createDate( dto.getCreateDate() );
         beer.updateDate( dto.getUpdateDate() );
 
         return beer.build();
@@ -44,12 +44,12 @@ public class BeerMapperImpl implements BeerMapper {
 
         beerDTO.id( beer.getId() );
         beerDTO.version( beer.getVersion() );
-        beerDTO.beerName( beer.getBeerName() );
-        beerDTO.beerStyle( beer.getBeerStyle() );
+        beerDTO.name( beer.getName() );
+        beerDTO.style( beer.getStyle() );
         beerDTO.upc( beer.getUpc() );
         beerDTO.quantityOnHand( beer.getQuantityOnHand() );
         beerDTO.price( beer.getPrice() );
-        beerDTO.createdDate( beer.getCreatedDate() );
+        beerDTO.createDate( beer.getCreateDate() );
         beerDTO.updateDate( beer.getUpdateDate() );
 
         return beerDTO.build();

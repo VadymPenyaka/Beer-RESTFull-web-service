@@ -10,9 +10,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
 @Slf4j
 @Service
 public class BeerServiceImpl implements BeerService {
@@ -25,36 +22,36 @@ public class BeerServiceImpl implements BeerService {
         BeerDTO beer1 = BeerDTO.builder()
                 .id(UUID.randomUUID())
                 .version(1)
-                .beerName("Galaxy Cat")
-                .beerStyle(BeerStyle.PALE_ALE)
+                .name("Galaxy Cat")
+                .style(BeerStyle.PALE_ALE)
                 .upc("12356")
                 .price(new BigDecimal("12.99"))
                 .quantityOnHand(122)
-                .createdDate(LocalDateTime.now())
+                .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
 
         BeerDTO beer2 = BeerDTO.builder()
                 .id(UUID.randomUUID())
                 .version(1)
-                .beerName("Crank")
-                .beerStyle(BeerStyle.PALE_ALE)
+                .name("Crank")
+                .style(BeerStyle.PALE_ALE)
                 .upc("12356222")
                 .price(new BigDecimal("11.99"))
                 .quantityOnHand(392)
-                .createdDate(LocalDateTime.now())
+                .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
 
         BeerDTO beer3 = BeerDTO.builder()
                 .id(UUID.randomUUID())
                 .version(1)
-                .beerName("Sunshine City")
-                .beerStyle(BeerStyle.IPA)
+                .name("Sunshine City")
+                .style(BeerStyle.IPA)
                 .upc("12356")
                 .price(new BigDecimal("13.99"))
                 .quantityOnHand(144)
-                .createdDate(LocalDateTime.now())
+                .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
 
@@ -67,12 +64,12 @@ public class BeerServiceImpl implements BeerService {
     public Optional<BeerDTO> patchBeerById(UUID beerId, BeerDTO beer) {
         BeerDTO existing = beerMap.get(beerId);
 
-        if (StringUtils.hasText(beer.getBeerName())){
-            existing.setBeerName(beer.getBeerName());
+        if (StringUtils.hasText(beer.getName())){
+            existing.setName(beer.getName());
         }
 
-        if (beer.getBeerStyle() != null) {
-            existing.setBeerStyle(beer.getBeerStyle());
+        if (beer.getStyle() != null) {
+            existing.setStyle(beer.getStyle());
         }
 
         if (beer.getPrice() != null) {
@@ -91,7 +88,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public Boolean deleteById(UUID beerId) {
+    public Boolean deleteBeerById(UUID beerId) {
         beerMap.remove(beerId);
 
         return true;
@@ -100,7 +97,7 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public Optional<BeerDTO> updateBeerById(UUID beerId, BeerDTO beer) {
         BeerDTO existing = beerMap.get(beerId);
-        existing.setBeerName(beer.getBeerName());
+        existing.setName(beer.getName());
         existing.setPrice(beer.getPrice());
         existing.setUpc(beer.getUpc());
         existing.setQuantityOnHand(beer.getQuantityOnHand());
@@ -108,7 +105,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public List<BeerDTO> listBeers(){
+    public List<BeerDTO> getAllBeers(){
         return new ArrayList<>(beerMap.values());
     }
 
@@ -126,10 +123,10 @@ public class BeerServiceImpl implements BeerService {
         BeerDTO savedBeer = BeerDTO.builder()
                 .id(UUID.randomUUID())
                 .version(1)
-                .createdDate(LocalDateTime.now())
+                .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
-                .beerName(beer.getBeerName())
-                .beerStyle(beer.getBeerStyle())
+                .name(beer.getName())
+                .style(beer.getStyle())
                 .quantityOnHand(beer.getQuantityOnHand())
                 .upc(beer.getUpc())
                 .price(beer.getPrice())

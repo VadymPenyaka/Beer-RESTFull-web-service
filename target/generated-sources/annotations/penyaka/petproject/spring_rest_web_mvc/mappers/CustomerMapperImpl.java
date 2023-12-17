@@ -7,7 +7,7 @@ import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-13T17:22:29+0200",
+    date = "2023-12-16T17:47:04+0200",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
@@ -24,7 +24,7 @@ public class CustomerMapperImpl implements CustomerMapper {
         customer.id( dto.getId() );
         customer.name( dto.getName() );
         customer.version( dto.getVersion() );
-        customer.createdDate( dto.getCreatedDate() );
+        customer.createDate( dto.getCreateDate() );
         customer.updateDate( dto.getUpdateDate() );
 
         return customer.build();
@@ -41,7 +41,7 @@ public class CustomerMapperImpl implements CustomerMapper {
         customerDTO.id( customer.getId() );
         customerDTO.name( customer.getName() );
         customerDTO.version( customer.getVersion() );
-        customerDTO.createdDate( customer.getCreatedDate() );
+        customerDTO.createDate( customer.getCreateDate() );
         customerDTO.updateDate( customer.getUpdateDate() );
 
         return customerDTO.build();

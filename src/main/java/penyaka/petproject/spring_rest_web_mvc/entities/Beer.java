@@ -12,9 +12,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
 @Getter
 @Setter
 @Builder
@@ -36,10 +33,10 @@ public class Beer {
     @NotBlank
     @Size(max = 50)
     @Column(length = 50)
-    private String beerName;
+    private String name;
 
     @NotNull
-    private BeerStyle beerStyle;
+    private BeerStyle style;
 
     @NotNull
     @NotBlank
@@ -49,6 +46,6 @@ public class Beer {
 
     @NotNull
     private BigDecimal price;
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

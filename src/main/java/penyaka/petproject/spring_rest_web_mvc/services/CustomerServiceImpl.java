@@ -7,9 +7,6 @@ import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
 import java.time.LocalDateTime;
 import java.util.*;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -20,7 +17,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .id(UUID.randomUUID())
                 .name("Customer 1")
                 .version(1)
-                .createdDate(LocalDateTime.now())
+                .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
 
@@ -28,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .id(UUID.randomUUID())
                 .name("Customer 2")
                 .version(1)
-                .createdDate(LocalDateTime.now())
+                .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
 
@@ -36,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .id(UUID.randomUUID())
                 .name("Customer 3")
                 .version(1)
-                .createdDate(LocalDateTime.now())
+                .createDate(LocalDateTime.now())
                 .updateDate(LocalDateTime.now())
                 .build();
 
@@ -78,7 +75,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .id(UUID.randomUUID())
                 .version(1)
                 .updateDate(LocalDateTime.now())
-                .createdDate(LocalDateTime.now())
+                .createDate(LocalDateTime.now())
                 .name(customer.getName())
                 .build();
 
