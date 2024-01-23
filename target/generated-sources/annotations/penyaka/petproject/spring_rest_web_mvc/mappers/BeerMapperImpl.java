@@ -7,7 +7,7 @@ import penyaka.petproject.spring_rest_web_mvc.model.BeerDTO;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-04T19:28:26+0200",
+    date = "2024-01-23T21:27:29+0200",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 19.0.2 (Amazon.com Inc.)"
 )
 @Component
