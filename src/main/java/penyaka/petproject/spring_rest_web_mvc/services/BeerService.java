@@ -1,5 +1,6 @@
 package penyaka.petproject.spring_rest_web_mvc.services;
 import penyaka.petproject.spring_rest_web_mvc.model.BeerDTO;
+import penyaka.petproject.spring_rest_web_mvc.model.BeerStyle;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +8,7 @@ import java.util.UUID;
 
 public interface BeerService {
 
-    List<BeerDTO> getAllBeers();
+    List<BeerDTO> getAllBeers(String beerName, BeerStyle beerStyle, Boolean getAmount);
 
     Optional<BeerDTO> getBeerById(UUID id);
 

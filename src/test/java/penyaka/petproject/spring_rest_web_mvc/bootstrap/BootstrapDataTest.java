@@ -5,15 +5,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import penyaka.petproject.spring_rest_web_mvc.bootstrap.BootstrapData;
 import penyaka.petproject.spring_rest_web_mvc.repositories.BeerRepository;
 import penyaka.petproject.spring_rest_web_mvc.repositories.CustomerRepository;
 import penyaka.petproject.spring_rest_web_mvc.services.BeerCSVService;
+import penyaka.petproject.spring_rest_web_mvc.services.BeerCSVServiceImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@Import(BeerCSVService.class)
+@Import(BeerCSVServiceImpl.class)
 class BootstrapDataTest {
 
     @Autowired
@@ -25,7 +25,6 @@ class BootstrapDataTest {
     @Autowired
     BeerCSVService beerCSVService;
 
-    @Autowired
     BootstrapData bootstrapData;
 
     @BeforeEach
