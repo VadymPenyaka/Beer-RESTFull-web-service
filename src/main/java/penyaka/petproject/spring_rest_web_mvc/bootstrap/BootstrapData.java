@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 import penyaka.petproject.spring_rest_web_mvc.entities.Beer;
 import penyaka.petproject.spring_rest_web_mvc.entities.Customer;
@@ -29,6 +30,7 @@ public class BootstrapData implements CommandLineRunner {
     private final BeerCSVService beerCsvService;
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         loadBeerData();
         loadCustomerData();
