@@ -2,6 +2,7 @@ package penyaka.petproject.spring_rest_web_mvc.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import penyaka.petproject.spring_rest_web_mvc.model.BeerDTO;
 import penyaka.petproject.spring_rest_web_mvc.model.BeerStyle;
 import penyaka.petproject.spring_rest_web_mvc.services.BeerService;
 
-import java.util.List;
 import java.util.UUID;
 
 
@@ -22,7 +22,6 @@ public class BeerController {
 
     public static final String BEER_PATH = "/api/v1/beer";
     public static final String BEER_PATH_ID = BEER_PATH + "/{beerId}";
-
     private final BeerService beerService;
 
     @PatchMapping(BEER_PATH_ID)
@@ -65,10 +64,12 @@ public class BeerController {
     }
 
     @GetMapping(value = BEER_PATH)
-    public List<BeerDTO> getAllBeers(@RequestParam(required = false) String beerName,
+    public Page<BeerDTO> getAllBeers(@RequestParam(required = false) String beerName,
                                      @RequestParam(required = false) BeerStyle beerStyle,
-                                     @RequestParam(required = false) Boolean getAmount){
-        return beerService.getAllBeers(beerName, beerStyle, getAmount);
+                                     @RequestParam(required = false) Boolean getAmount,
+                                     @RequestParam(required = false) Integer pageNumber,
+                                     @RequestParam(required = false) Integer pageSize){
+        return beerService.getAllBeers(beerName, beerStyle, getAmount, pageNumber, pageSize);
     }
 
 
