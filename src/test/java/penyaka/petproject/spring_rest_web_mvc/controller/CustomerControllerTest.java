@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import penyaka.petproject.spring_rest_web_mvc.controller.CustomerController;
 import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
 import penyaka.petproject.spring_rest_web_mvc.services.CustomerService;
 import penyaka.petproject.spring_rest_web_mvc.services.CustomerServiceImpl;
@@ -55,7 +54,7 @@ class CustomerControllerTest {
 
     @Test
     void testPatchCustomer() throws Exception {
-        CustomerDTO customer = customerServiceImpl.getAllCustomers().get(0);
+        CustomerDTO customer = customerServiceImpl.getAllCustomers(1, 25).getContent().get(0);
 
         Map<String, Object> customerMap = new HashMap<>();
         customerMap.put("name", "New Name");
@@ -75,7 +74,7 @@ class CustomerControllerTest {
 
     @Test
     void testDeleteCustomer() throws Exception {
-        CustomerDTO customer = customerServiceImpl.getAllCustomers().get(0);
+        CustomerDTO customer = customerServiceImpl.getAllCustomers(1, 25).getContent().get(0);
 
         given(customerService.deleteCustomerById(any())).willReturn(true);
 
@@ -90,7 +89,7 @@ class CustomerControllerTest {
 
     @Test
     void testUpdateCustomer() throws Exception {
-        CustomerDTO customer = customerServiceImpl.getAllCustomers().get(0);
+        CustomerDTO customer = customerServiceImpl.getAllCustomers(1, 25).getContent().get(0);
 
         given(customerService.updateCustomerById(any(), any())).willReturn(Optional.of(CustomerDTO.builder()
                 .build()));
@@ -108,12 +107,12 @@ class CustomerControllerTest {
 
     @Test
     void testCreateCustomer() throws Exception {
-        CustomerDTO customer = customerServiceImpl.getAllCustomers().get(0);
+        CustomerDTO customer = customerServiceImpl.getAllCustomers(1, 25).getContent().get(0);
         customer.setId(null);
         customer.setVersion(null);
 
         given(customerService.saveNewCustomer(any(CustomerDTO.class)))
-                .willReturn(customerServiceImpl.getAllCustomers().get(1));
+                .willReturn(customerServiceImpl.getAllCustomers(1, 25).getContent().get(1));
 
         mockMvc.perform(post(CustomerController.CUSTOMER_PATH).contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -124,13 +123,13 @@ class CustomerControllerTest {
 
     @Test
     void listAllCustomers() throws Exception {
-        given(customerService.getAllCustomers()).willReturn(customerServiceImpl.getAllCustomers());
+        given(customerService.getAllCustomers(any(), any())).willReturn(customerServiceImpl.getAllCustomers(1, 25));
 
         mockMvc.perform(get(CustomerController.CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.length()", is(3)));
+                .andExpect(jsonPath("$.content.length()", is(3)));
     }
 
     @Test
@@ -144,7 +143,7 @@ class CustomerControllerTest {
 
     @Test
     void getCustomerById() throws Exception {
-        CustomerDTO customer = customerServiceImpl.getAllCustomers().get(0);
+        CustomerDTO customer = customerServiceImpl.getAllCustomers(1, 25).getContent().get(0);
 
         given(customerService.getCustomerById(customer.getId())).willReturn(Optional.of(customer));
 

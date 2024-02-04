@@ -1,8 +1,8 @@
 package penyaka.petproject.spring_rest_web_mvc.services;
 
+import org.springframework.data.domain.Page;
 import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -10,7 +10,7 @@ public interface CustomerService {
 
     Optional<CustomerDTO> getCustomerById(UUID uuid);
 
-    List<CustomerDTO> getAllCustomers();
+    Page<CustomerDTO> getAllCustomers(Integer pageNumber, Integer pageSize);
 
     CustomerDTO saveNewCustomer(CustomerDTO customer);
 

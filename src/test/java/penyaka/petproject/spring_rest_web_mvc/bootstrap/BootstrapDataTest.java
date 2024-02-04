@@ -37,7 +37,7 @@ class BootstrapDataTest {
         bootstrapData.run(null);
 
         assertThat(beerRepository.count()).isEqualTo(2413);
-        assertThat(customerRepository.count()).isEqualTo(3);
+        assertThat(customerRepository.count()).isEqualTo(100);
     }
 }
 

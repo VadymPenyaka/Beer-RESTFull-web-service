@@ -1,5 +1,7 @@
 package penyaka.petproject.spring_rest_web_mvc.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
@@ -90,8 +92,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDTO> getAllCustomers() {
-        return new ArrayList<>(customerMap.values());
+    public Page<CustomerDTO> getAllCustomers(Integer pageNumber, Integer pageSize) {
+        return new PageImpl<>(new ArrayList<>(customerMap.values()));
     }
 }
 

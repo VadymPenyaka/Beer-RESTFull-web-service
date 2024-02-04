@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -110,31 +111,19 @@ public class BootstrapData implements CommandLineRunner {
     private void loadCustomerData() {
 
         if (customerRepository.count() == 0) {
-            Customer customer1 = Customer.builder()
-                    .id(UUID.randomUUID())
-                    .name("Customer 1")
-                    .version(1)
-                    .createDate(LocalDateTime.now())
-                    .updateDate(LocalDateTime.now())
-                    .build();
+            List<Customer> customers = new ArrayList<>();
 
-            Customer customer2 = Customer.builder()
-                    .id(UUID.randomUUID())
-                    .name("Customer 2")
-                    .version(1)
-                    .createDate(LocalDateTime.now())
-                    .updateDate(LocalDateTime.now())
-                    .build();
+            for (int i=0; i<100; i++) {
+                customers.add(Customer.builder()
+                        .id(UUID.randomUUID())
+                        .name("Customer "+i)
+                        .version(1)
+                        .createDate(LocalDateTime.now())
+                        .updateDate(LocalDateTime.now())
+                        .build());
+            }
 
-            Customer customer3 = Customer.builder()
-                    .id(UUID.randomUUID())
-                    .name("Customer 3")
-                    .version(1)
-                    .createDate(LocalDateTime.now())
-                    .updateDate(LocalDateTime.now())
-                    .build();
-
-            customerRepository.saveAll(Arrays.asList(customer1, customer2, customer3));
+            customerRepository.saveAll(customers);
         }
 
     }

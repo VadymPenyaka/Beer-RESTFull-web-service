@@ -3,6 +3,7 @@ package penyaka.petproject.spring_rest_web_mvc.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
@@ -12,7 +13,6 @@ import penyaka.petproject.spring_rest_web_mvc.mappers.CustomerMapper;
 import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
 import penyaka.petproject.spring_rest_web_mvc.repositories.CustomerRepository;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -99,16 +99,16 @@ class CustomerControllerIT {
     @Test
     void testListAllEmptyList() {
         customerRepository.deleteAll();
-        List<CustomerDTO> dtos = customerController.getAllCustomers();
+        Page<CustomerDTO> dtos = customerController.getAllCustomers(1, 25);
 
-        assertThat(dtos.size()).isEqualTo(0);
+        assertThat(dtos.getContent().size()).isEqualTo(0);
     }
 
     @Test
     void testListAll() {
-        List<CustomerDTO> dtos = customerController.getAllCustomers();
+        Page<CustomerDTO> dtos = customerController.getAllCustomers(1, 25);
 
-        assertThat(dtos.size()).isEqualTo(3);
+        assertThat(dtos.getContent().size()).isEqualTo(25);
     }
 
     @Test

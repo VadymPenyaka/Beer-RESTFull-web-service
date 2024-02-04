@@ -2,13 +2,16 @@ package penyaka.petproject.spring_rest_web_mvc.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import penyaka.petproject.spring_rest_web_mvc.entities.Customer;
 import penyaka.petproject.spring_rest_web_mvc.mappers.CustomerMapper;
 import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
 import penyaka.petproject.spring_rest_web_mvc.repositories.CustomerRepository;
+import penyaka.petproject.spring_rest_web_mvc.util.PagingUtil;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -28,10 +31,16 @@ public class CustomerServiceJPA implements CustomerService {
     }
 
     @Override
-    public List<CustomerDTO> getAllCustomers() {
-        return customerRepository.findAll().stream()
-                .map(customerMapper::customerToCustomerDto)
-                .collect(Collectors.toList());
+    public Page<CustomerDTO> getAllCustomers(Integer pageNumber, Integer pageSize) {
+        PageRequest pageRequest = PagingUtil.buildPageRequest(pageNumber, pageSize, "name");
+
+        Page<Customer> customersPage = customerRepository.findAll(pageRequest);
+
+
+        return customersPage.map(customerMapper::customerToCustomerDto);
+//        return customerRepository.findAll().stream()
+//                .map(customerMapper::customerToCustomerDto)
+//                .collect(Collectors.toList());
     }
 
     @Override
