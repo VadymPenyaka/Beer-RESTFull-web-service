@@ -15,30 +15,33 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@Builder
 @Entity
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class Customer {
+@AllArgsConstructor
+public class Category {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @JdbcTypeCode(SqlTypes.CHAR)
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID id;
-    private String name;
-
-    @Column(length = 255)
-    private String email;
 
     @Version
-    private Integer version;
+    private long version;
+
     @CreationTimestamp
     private LocalDateTime createDate;
+
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
+    private String description;
+
     @Builder.Default
-    @OneToMany(mappedBy = "customer")
-    Set<BeerOrder> beerOrders = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "beer_category",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "beer_id"))
+    private Set<Beer> beers = new HashSet<>();
 }

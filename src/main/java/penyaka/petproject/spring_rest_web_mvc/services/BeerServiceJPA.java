@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import penyaka.petproject.spring_rest_web_mvc.entities.Beer;
@@ -13,6 +12,8 @@ import penyaka.petproject.spring_rest_web_mvc.model.BeerDTO;
 import penyaka.petproject.spring_rest_web_mvc.model.BeerStyle;
 import penyaka.petproject.spring_rest_web_mvc.repositories.BeerRepository;
 import org.springframework.data.domain.Pageable;
+import penyaka.petproject.spring_rest_web_mvc.util.PagingUtil;
+
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,7 +30,7 @@ public class BeerServiceJPA implements BeerService {
 
     @Override
     public Page<BeerDTO> getAllBeers(String beerName, BeerStyle beerStyle, Boolean getAmount, Integer pageNumber, Integer pageSize) {
-        PageRequest pageRequest = buildPageRequest(pageNumber, pageSize);
+        PageRequest pageRequest = PagingUtil.buildPageRequest(pageNumber, pageSize, "name");
 
         Page<Beer> beerPage;
 
@@ -38,7 +39,7 @@ public class BeerServiceJPA implements BeerService {
         else if (!StringUtils.hasText(beerName) && beerStyle != null)//query by style
             beerPage = getBeersByStyle(beerStyle, pageRequest);
         else if (StringUtils.hasText(beerName) && beerStyle != null)//query by style and name
-            beerPage = getBearsByNameAndSyle(beerName, beerStyle, pageRequest);
+            beerPage = getBearsByNameAndStyle(beerName, beerStyle, pageRequest);
         else//get all
             beerPage = beerRepository.findAll(pageRequest);
 
@@ -47,12 +48,9 @@ public class BeerServiceJPA implements BeerService {
         }
 
         return beerPage.map(beerMapper::beerToBeerDto);
-//        return beerList.stream()
-//                .map(beerMapper::beerToBeerDto)
-//                .collect(Collectors.toList());
     }
 
-    private Page<Beer> getBearsByNameAndSyle(String beerName, BeerStyle beerStyle, Pageable pageable) {
+    private Page<Beer> getBearsByNameAndStyle(String beerName, BeerStyle beerStyle, Pageable pageable) {
         return beerRepository.findAllByNameLikeIgnoreCaseAndStyle("%" + beerName + "%", beerStyle, pageable);
     }
 
@@ -62,31 +60,6 @@ public class BeerServiceJPA implements BeerService {
 
     public Page<Beer> getBeersByName (String beerName, Pageable pageable) {
         return beerRepository.findAllByNameLikeIgnoreCase("%"+beerName+"%", pageable);
-    }
-
-    public PageRequest buildPageRequest (Integer pageNumber, Integer pageSize) {
-        int queryPageNumber;
-        int queryPageSize;
-
-        if (pageNumber != null && pageNumber > 0)
-            queryPageNumber = pageNumber-1;
-        else
-            queryPageNumber = DEFAULT_PAGE;
-
-
-        if (pageSize == null) {
-            queryPageSize = DEFAULT_PAGE_SIZE;
-        } else {
-            if (pageSize > 1000) {
-                queryPageSize = 1000;
-            } else {
-                queryPageSize = pageSize;
-            }
-        }
-
-        Sort sort = Sort.by(Sort.Order.asc("name"));
-
-        return PageRequest.of(queryPageNumber, queryPageSize, sort);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package penyaka.petproject.spring_rest_web_mvc.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import penyaka.petproject.spring_rest_web_mvc.model.CustomerDTO;
 import penyaka.petproject.spring_rest_web_mvc.services.CustomerService;
 
-import java.util.List;
 import java.util.UUID;
 
 
@@ -61,8 +61,8 @@ public class CustomerController {
     }
 
     @GetMapping(CUSTOMER_PATH)
-    public List<CustomerDTO> getAllCustomers(){
-        return customerService.getAllCustomers();
+    public Page<CustomerDTO> getAllCustomers(@RequestParam(required = false) Integer pageNumber,@RequestParam(required = false) Integer pageSize){
+        return customerService.getAllCustomers(pageNumber, pageSize);
     }
 
     @GetMapping(value = CUSTOMER_PATH_ID)
